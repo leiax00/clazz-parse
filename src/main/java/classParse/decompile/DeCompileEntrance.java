@@ -14,27 +14,20 @@ public class DeCompileEntrance {
     private DeCompiler compiler = new DeCompiler();
     public void process() {
         long start = System.currentTimeMillis();
+        int emptyCount = 0;
         while (true) {
             // todo decompile逻辑
             while (!ThreadConst.clazzs.isEmpty()) {
-                executorService.scheduleAtFixedRate(()->{
-                    try {
-                        String clazzPath = ThreadConst.clazzs.remove();
-                        compiler.deCompile(clazzPath, ThreadConst.srcTemp);
-                    } catch (NoSuchElementException e) {
-                        System.out.println("ThreadConst.clazzs has bean empty");
-//                        if (ThreadConst.dirs.size() != 0) {
-//                            UnzipEntrance.executorService.notifyAll();
-//                        }
-                    }
-                },1,3, TimeUnit.SECONDS);
-                waitTime(2);
+                executorService.execute(new DecompileThread());
+                waitTime(1);
                 System.out.println("DeCompileEntrance:" + executorService);
             }
 
-            // 每5秒检测一次clazz队列
-            waitTime(5);
             if (ThreadConst.dirs.size() == 0 && ThreadConst.clazzs.size() == 0) {
+                waitTime(2);
+                emptyCount++;
+            }
+            if (emptyCount >= 10) {
                 break;
             }
         }
@@ -44,7 +37,6 @@ public class DeCompileEntrance {
                 System.out.println("Deal finish.....: " + (System.currentTimeMillis() - start) / 1000);
                 break;
             }
-            waitTime(5);
         }
     }
 

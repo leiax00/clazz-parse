@@ -11,11 +11,11 @@ public class ThreadConst {
 
     public static final int CORE_THREAD_SIZE = 10;
 
-    public static final int THREAD_START_DELAY = 2;
+    public static final int THREAD_START_DELAY = 1;
 
-    public static final int THREAD_START_CYCLE = 5;
+    public static final int THREAD_START_CYCLE = 1;
 
-    public static final int CHECK_CYCLE = 5;
+    public static final int CHECK_CYCLE = 1;
 
     public static final int MILLIS_OF_ONE_SECOND = 1000;
 

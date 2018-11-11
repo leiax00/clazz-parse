@@ -17,6 +17,7 @@ public class DeCompilerApp {
     public static void main(String[] args) throws InterruptedException {
 //        ThreadConst.scanPath = args[0];
 //        ThreadConst.clazzTemp = args[1];
+        long start = System.currentTimeMillis();
         ThreadConst.scanPath = "D:\\SDK\\jdk8";
         ThreadConst.clazzTemp = "F:\\work_space\\clazz-parse\\temp";
         ThreadConst.srcTemp = "F:\\work_space\\clazz-parse\\temp\\src";
@@ -24,8 +25,10 @@ public class DeCompilerApp {
         DeCompileEntrance deCompileEntrance = new DeCompileEntrance();
         executorService.execute(()->unzipEntrance.process());
         executorService.execute(()->deCompileEntrance.process());
+        executorService.shutdown();
         while (true) {
             if (executorService.isTerminated()) {
+                System.out.println("All execute time: " + (System.currentTimeMillis() - start));
                 break;
             }
         }
