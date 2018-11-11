@@ -12,7 +12,7 @@ public class DecompileThread implements Runnable {
         while (!ThreadConst.clazzs.isEmpty()) {
             try {
                 String clazzPath = ThreadConst.clazzs.remove();
-                compiler.deCompile(clazzPath, ThreadConst.srcTemp);
+                compiler.deCompile(clazzPath);
             } catch (NoSuchElementException e) {
                 System.out.println("ThreadConst.clazzs has bean empty");
             }

@@ -1,8 +1,6 @@
 package classParse.decompile;
 
 import classParse.ThreadConst;
-import classParse.decompile.ClazzLoader;
-import classParse.decompile.CustomPrinter;
 import jd.core.loader.Loader;
 import jd.core.process.DecompilerImpl;
 import org.jd.gui.util.decompiler.GuiPreferences;
@@ -11,20 +9,15 @@ import java.io.File;
 
 public class DeCompiler {
 
-    public void deCompile(String srcPath, String dstPath) {
+    public void deCompile(String srcPath) {
         String[] path = srcPath.split(ThreadConst.CLAZZ_PATH_SEPARATOR);
         DecompilerImpl decompiler = new DecompilerImpl();
         Loader loader = new ClazzLoader(path[1]);
         CustomPrinter printer = new CustomPrinter();
-        printer.setJarName(path[0]);
+        printer.setJar2clazz(srcPath);
         GuiPreferences preferences = new GuiPreferences();
         try {
             decompiler.decompile(preferences, loader, printer, new File(path[1]).getParent());
-            dstPath = ThreadConst.srcTemp + path[1].substring(ThreadConst.clazzTemp.length());
-            dstPath = dstPath.replaceAll("\\.class", "\\.java");
-            System.out.println("DeCompiler path[1]： " + path[1]);
-            System.out.println("DeCompiler dstPath： " + dstPath);
-            printer.print2File(dstPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
