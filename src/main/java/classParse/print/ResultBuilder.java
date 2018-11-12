@@ -8,16 +8,26 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-
-import static classParse.ThreadConst.resultPath;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ResultBuilder implements Runnable {
     private Map<String, HashSet<String>> resultMap = new HashMap<>();
 
+    private ConcurrentLinkedQueue<String> targetQueue;
+    private String targetFile;
+
+    public ResultBuilder() {
+    }
+
+    public ResultBuilder(ConcurrentLinkedQueue<String> targetQueue, String targetFile) {
+        this.targetQueue = targetQueue;
+        this.targetFile = targetFile;
+    }
+
     @Override
     public void run() {
-        while (!ThreadConst.result.isEmpty()) {
-            String entity = ThreadConst.result.remove();
+        while (!targetQueue.isEmpty()) {
+            String entity = targetQueue.remove();
             String[] jar2clazz = entity.split(ThreadConst.CLAZZ_PATH_SEPARATOR);
             HashSet<String> clazzSet = resultMap.get(jar2clazz[0]);
             if (clazzSet == null) {
@@ -26,7 +36,7 @@ public class ResultBuilder implements Runnable {
             clazzSet.add(jar2clazz[1]);
             resultMap.put(jar2clazz[0], clazzSet);
         }
-        print2File(resultPath);
+        print2File(targetFile);
     }
 
     public void print2File(String srcPath) {

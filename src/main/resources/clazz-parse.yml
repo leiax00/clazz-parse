@@ -1,0 +1,20 @@
+scanDir: D:\SDK\jdk8
+
+#该参数用于说明匹配的规则是否是正则表达式，是，则进进行|拼接，不是则在前后加上.*再拼接，并仅对其中的.号进行转译
+#对于自定义正则表达式，注意转译
+patternFlag: false
+
+#匹配的规则，可写入正则表达式或关键字，正则表达式需要自己转译
+matchRules: [
+    com.sun,
+    org.apache
+  ]
+
+# 可选参数，不填文件生成位置同jar包位置
+resultFile:
+
+# 可选参数，不填文件生成位置同jar包位置
+errorFile:
+
+# 可选参数，不填文件生成位置同jar包位置下temp目录中
+clazzTemp:

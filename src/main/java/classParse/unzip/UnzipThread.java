@@ -39,7 +39,7 @@ public class UnzipThread implements Runnable {
         if (FileOperateUtil.isClazz(file)) {
             ThreadConst.clazzs.add(file.getAbsolutePath());
         } else if (FileOperateUtil.isJar(file)) {
-            FileOperateUtil.unZipJar4Queue(file, ThreadConst.clazzTemp);
+            FileOperateUtil.unZipJar4Queue(file, ThreadConst.config.getClazzTemp());
         }
     }
 }

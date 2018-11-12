@@ -20,6 +20,7 @@ public class DeCompiler {
             decompiler.decompile(preferences, loader, printer, new File(path[1]).getParent());
         } catch (Exception e) {
             e.printStackTrace();
+            ThreadConst.error.add(srcPath);
         }
     }
 

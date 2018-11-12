@@ -3,11 +3,7 @@ package classParse;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ThreadConst {
-    public static String clazzTemp = "";
-
-    public static String scanPath = "";
-
-    public static String resultPath = "";
+    public static ClazzParseConfig config;
 
     public static final int CORE_THREAD_SIZE = 10;
 
@@ -18,12 +14,12 @@ public class ThreadConst {
      */
     public static final String CLAZZ_PATH_SEPARATOR = "->";
 
-    public static final String REGEX_TARGET = ".*\\.sun\\..*";
-
     public volatile static ConcurrentLinkedQueue<String> dirs = new ConcurrentLinkedQueue();
 
     public volatile static ConcurrentLinkedQueue<String> clazzs = new ConcurrentLinkedQueue();
 
     public volatile static ConcurrentLinkedQueue<String> result = new ConcurrentLinkedQueue();
+
+    public volatile static ConcurrentLinkedQueue<String> error = new ConcurrentLinkedQueue();
 
 }

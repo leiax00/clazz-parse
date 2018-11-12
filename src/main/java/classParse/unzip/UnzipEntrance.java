@@ -15,8 +15,9 @@ public class UnzipEntrance {
     public static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(ThreadConst.CORE_THREAD_SIZE);
 
     public void process() {
-        if (!"".equals(ThreadConst.scanPath)) {
-            ThreadConst.dirs.add(ThreadConst.scanPath);
+        String scanDir = ThreadConst.config.getScanDir();
+        if (!"".equals(scanDir)) {
+            ThreadConst.dirs.add(scanDir);
         }
         consumeDirs();
 
@@ -59,12 +60,5 @@ public class UnzipEntrance {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        ThreadConst.clazzTemp = "F:\\work_space\\clazz-parse\\temp";
-        ThreadConst.scanPath = "D:\\SDK\\jdk8";
-        UnzipEntrance entrance = new UnzipEntrance();
-        entrance.process();
     }
 }

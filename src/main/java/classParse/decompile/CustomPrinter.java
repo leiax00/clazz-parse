@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 @Data
 public class CustomPrinter extends ClassFileSourcePrinter {
+    private String pattern_template = ".*%s.*";
 
     private String jar2clazz;
 
@@ -32,9 +33,7 @@ public class CustomPrinter extends ClassFileSourcePrinter {
 
     @Override
     protected void append(String s) {
-        if (Pattern.matches(ThreadConst.REGEX_TARGET, s)) {
-            // todo 记录jar名字和class名字
-            System.out.println(jar2clazz);
+        if (Pattern.matches(ThreadConst.config.getPatternStr(), s)) {
             ThreadConst.result.add(jar2clazz);
         }
     }
