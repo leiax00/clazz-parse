@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 @Data
 public class ClazzParseConfig {
-    private static final String PATTERN_TEMPLATE = ".*%s.*";
+    private static final String PATTERN_TEMPLATE = "[\\s\\S]*%s[\\s\\S]*";
     private String scanDir;
 
     private List<String> matchRules;

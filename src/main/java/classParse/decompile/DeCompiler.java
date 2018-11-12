@@ -1,11 +1,16 @@
 package classParse.decompile;
 
+import classParse.ClazzParseConfig;
+import classParse.DeCompilerApp;
 import classParse.ThreadConst;
 import jd.core.loader.Loader;
 import jd.core.process.DecompilerImpl;
 import org.jd.gui.util.decompiler.GuiPreferences;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class DeCompiler {
 
@@ -14,20 +19,16 @@ public class DeCompiler {
         DecompilerImpl decompiler = new DecompilerImpl();
         Loader loader = new ClazzLoader(path[1]);
         CustomPrinter printer = new CustomPrinter();
-        printer.setJar2clazz(srcPath);
         GuiPreferences preferences = new GuiPreferences();
         try {
             decompiler.decompile(preferences, loader, printer, new File(path[1]).getParent());
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             ThreadConst.error.add(srcPath);
+        }
+        if (printer.isMatchRule()) {
+            ThreadConst.result.add(srcPath);
         }
     }
 
-    public static void main(String[] args) {
-        String b = "F:\\work_space\\clazz-parse\\temp";
-        String c = "F:\\work_space\\clazz-parse\\temp\\src";
-        String a = "F:\\work_space\\clazz-parse\\temp\\test-unzip\\classParse\\DeCompilerApp.class";
-        System.out.println(c + a.substring(b.length()));
-    }
 }

@@ -8,9 +8,7 @@ import java.util.regex.Pattern;
 
 @Data
 public class CustomPrinter extends ClassFileSourcePrinter {
-    private String pattern_template = ".*%s.*";
-
-    private String jar2clazz;
+    private StringBuffer buffer = new StringBuffer();
 
     @Override
     protected boolean getRealignmentLineNumber() {
@@ -29,12 +27,15 @@ public class CustomPrinter extends ClassFileSourcePrinter {
 
     @Override
     protected void append(char c) {
+        buffer.append(c);
     }
 
     @Override
     protected void append(String s) {
-        if (Pattern.matches(ThreadConst.config.getPatternStr(), s)) {
-            ThreadConst.result.add(jar2clazz);
-        }
+        buffer.append(s);
+    }
+
+    protected boolean isMatchRule() {
+        return Pattern.matches(ThreadConst.config.getPatternStr(), buffer.toString());
     }
 }
